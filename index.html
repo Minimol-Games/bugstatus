@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#152349">
+<meta name="description" content="Case Solved: The London Files bug status. See what is fixed, what is coming next, and what is still TBA.">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'none'; upgrade-insecure-requests">
+<title>Case Solved - Bug Status</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="assets/brand/case-solved-banner.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #152349;
+  --navy-deep: #0e1833;
+  --navy-mid: #1e3a6e;
+  --cyan-hot: #4db1e2;
+  --panel: rgba(30, 58, 110, 0.42);
+  --panel-strong: rgba(16, 28, 58, 0.88);
+  --ink: #f2f6fb;
+  --ink2: #b8c9e0;
+  --ink3: #7f95b5;
+  --line: rgba(77, 177, 226, 0.28);
+  --fixed: #5dcea0;
+  --fixed-soft: rgba(93, 206, 160, 0.18);
+  --fixed-line: #5dcea0;
+  --fixed-glow: rgba(93, 206, 160, 0.42);
+  --next: #4db1e2;
+  --next-soft: rgba(77, 177, 226, 0.16);
+  --next-line: #4db1e2;
+  --next-glow: rgba(77, 177, 226, 0.45);
+  --tba: #9aacc4;
+  --tba-soft: rgba(90, 107, 132, 0.28);
+  --tba-line: #8a9bb3;
+  --tba-glow: rgba(154, 172, 196, 0.28);
+  --radius: 14px;
+  --max: 1480px;
+  --brand-h: clamp(3.85rem, 13vw, 5.15rem);
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ease-soft: cubic-bezier(.33, 1, .68, 1);
+  --dur: .42s;
+  --dur-fast: .22s;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Outfit", system-ui, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 70% 42% at 12% -8%, rgba(77,177,226,.22), transparent 58%),
+    radial-gradient(ellipse 55% 36% at 92% 8%, rgba(93,206,160,.08), transparent 55%),
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(30,58,110,.35), transparent 60%),
+    linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img { max-width: 100%; height: auto; display: block; }
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip:focus { left: 1rem; top: 1rem; }
+.hero {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(180deg, rgba(30,58,110,.95) 0%, rgba(21,35,73,.92) 100%);
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, rgba(77,177,226,.55), transparent) 1;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -30% 15% auto -10%;
+  height: 140%;
+  background: radial-gradient(ellipse at 30% 40%, rgba(77,177,226,.2), transparent 62%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  left: -20%;
+  top: 0;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent 0%, rgba(255,255,255,.045) 42%, transparent 68%);
+  pointer-events: none;
+  z-index: 0;
+  animation: hero-sheen 9s var(--ease-soft) infinite;
+}
+.hero-inner,
+.wrap {
+  width: min(100% - 2.5rem, var(--max));
+  margin: 0 auto;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  padding: 1.55rem 0 1.45rem;
+}
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem 1.2rem;
+  flex-wrap: wrap;
+}
+.hero-top {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 0.85rem;
+}
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(14, 24, 51, 0.55);
+  box-shadow: 0 8px 22px rgba(0,0,0,.25);
+}
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 36px;
+  padding: 0.35rem 0.7rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink2);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: background var(--dur-fast) ease, color var(--dur-fast) ease, scale var(--dur-fast) var(--ease-out);
+}
+.lang-btn .flag {
+  width: 1.15rem;
+  height: 0.85rem;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.18);
+  flex-shrink: 0;
+}
+.lang-btn .flag svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.lang-btn[aria-pressed="true"] {
+  background: var(--cyan-hot);
+  color: var(--navy-deep);
+  box-shadow: 0 0 16px rgba(77,177,226,.3);
+}
+.lang-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.brand-mark {
+  height: var(--brand-h);
+  width: auto;
+  aspect-ratio: 460 / 215;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: left center;
+  box-shadow:
+    0 0 0 1px rgba(77,177,226,.35),
+    0 0 28px rgba(77,177,226,.18),
+    0 14px 34px rgba(0,0,0,.55);
+  transition: scale var(--dur) var(--ease-out), box-shadow var(--dur) ease;
+}
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: var(--brand-h);
+}
+.brand-text h1 {
+  margin: 0;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-size: clamp(2.1rem, 7vw, 3.4rem);
+  letter-spacing: .04em;
+  color: #fff;
+  line-height: .95;
+  text-shadow:
+    0 2px 0 rgba(0,0,0,.35),
+    0 0 32px rgba(77,177,226,.28);
+}
+.brand-text .sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--cyan-hot);
+  text-shadow: 0 0 18px rgba(77,177,226,.35);
+}
+@media (max-width: 520px) {
+  .brand-mark {
+    width: min(100%, 18rem);
+    height: auto;
+  }
+  .brand-text { min-height: 0; }
+}
+.wrap { padding: 1.35rem 0 3.25rem; }
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 1.15rem;
+}
+.toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.75rem;
+}
+.toolbar-sep {
+  width: 1px;
+  height: 1.75rem;
+  background: linear-gradient(180deg, transparent, var(--line), transparent);
+  margin: 0 0.2rem;
+  flex-shrink: 0;
+}
+.store-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.15rem;
+  background: var(--cyan-hot);
+  color: var(--navy-deep);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  box-shadow:
+    0 0 0 1px rgba(77,177,226,.25),
+    0 0 22px rgba(77,177,226,.28),
+    0 10px 28px rgba(0,0,0,.35);
+  transition:
+    translate var(--dur-fast) var(--ease-out),
+    scale var(--dur-fast) var(--ease-out),
+    filter var(--dur-fast) ease,
+    background var(--dur-fast) ease,
+    box-shadow var(--dur) ease;
+  min-height: 44px;
+}
+.cta:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.cta.store {
+  padding: 0.55rem 0.85rem;
+  font-size: 0.82rem;
+  gap: 0.4rem;
+  color: #fff;
+  min-height: 40px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.35);
+}
+.cta.store svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  fill: currentColor;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.cta.steam { background: #1b2838; }
+.cta.xbox { background: #107c10; }
+.cta.ps { background: #003087; }
+.cta.switch { background: #e60012; }
+.cta.ios { background: #000; }
+.cta.android { background: #01875f; }
+.updated {
+  color: var(--ink3);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0;
+}
+.panel-surface {
+  background:
+    linear-gradient(180deg, rgba(77,177,226,.07), transparent 42%),
+    var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(0,0,0,.16);
+}
+.intro {
+  margin: 0 0 1rem;
+  padding: 0.95rem 1.05rem;
+  color: var(--ink2);
+  font-size: 0.92rem;
+  max-width: 70ch;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.1rem;
+  margin: 0 0 1.2rem;
+  padding: 0.95rem 1.05rem;
+}
+.legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.84rem;
+  color: var(--ink2);
+  font-weight: 500;
+}
+.legend .hint {
+  color: var(--ink3);
+  font-weight: 400;
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 1.35rem;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink2);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  min-height: 40px;
+  transition:
+    background var(--dur-fast) ease,
+    border-color var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    box-shadow var(--dur) ease,
+    scale var(--dur-fast) var(--ease-out);
+}
+.chip[aria-pressed="true"] {
+  background: var(--cyan-hot);
+  border-color: #fff;
+  color: var(--navy-deep);
+  box-shadow: 0 0 0 1px rgba(77,177,226,.35), 0 0 20px rgba(77,177,226,.35);
+}
+.chip:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.lane {
+  margin: 0 0 2rem;
+  overflow: visible;
+}
+.lane[hidden] { display: none; }
+.lane-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem 0.85rem;
+  margin: 0 0 0.55rem;
+}
+.lane-head h2 {
+  margin: 0;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-size: clamp(1.55rem, 4vw, 2.1rem);
+  letter-spacing: .06em;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(77,177,226,.2);
+}
+.lane-head .count {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink3);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.lane-note {
+  margin: 0 0 0.85rem;
+  color: var(--ink3);
+  font-size: 0.86rem;
+}
+.lane-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.85rem;
+  margin: -0.35rem 0 0.95rem;
+  font-size: 0.84rem;
+  color: var(--ink2);
+}
+.lane-meta time {
+  color: var(--ink3);
+  font-weight: 600;
+}
+.lane-meta a {
+  color: var(--cyan-hot);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(77, 177, 226, 0.45);
+  transition: border-color var(--dur-fast) ease, text-shadow var(--dur-fast) ease;
+}
+.lane-meta a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr));
+  gap: 1.1rem;
+  padding: 0.75rem 0.35rem 1.1rem;
+  margin: 0;
+  overflow: visible;
+}
+.card {
+  --glow: var(--next-glow);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
+  min-height: 9.25rem;
+  padding: 1.05rem 1.05rem 0.7rem;
+  background:
+    linear-gradient(165deg, rgba(255,255,255,.045), transparent 38%),
+    var(--panel-strong);
+  border: 1px solid var(--line);
+  border-left-width: 5px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  isolation: isolate;
+  opacity: 0;
+  translate: 0 14px;
+  scale: 1;
+  box-shadow: 0 8px 18px rgba(0,0,0,.22);
+  animation: card-in .58s var(--ease-out) forwards;
+  transition:
+    translate var(--dur) var(--ease-out),
+    scale var(--dur) var(--ease-out),
+    box-shadow var(--dur) ease,
+    border-color var(--dur) ease;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(180deg, #fff8, transparent 30%, transparent 70%, #fff3);
+  opacity: .35;
+  pointer-events: none;
+  z-index: 2;
+}
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(115deg, transparent 34%, rgba(255,255,255,.11) 50%, transparent 66%);
+  transform: translateX(-120%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: transform .65s var(--ease-soft), opacity .28s ease;
+}
+.card.fixed {
+  --glow: var(--fixed-glow);
+  border-color: rgba(93, 206, 160, 0.38);
+  border-left-color: var(--fixed-line);
+  background:
+    linear-gradient(165deg, rgba(93,206,160,.14), transparent 46%),
+    var(--panel-strong);
+  box-shadow:
+    0 0 0 1px rgba(93, 206, 160, 0.12),
+    0 8px 18px rgba(0,0,0,.22);
+}
+.card.next {
+  --glow: var(--next-glow);
+  border-color: rgba(77, 177, 226, 0.4);
+  border-left-color: var(--next-line);
+  background:
+    linear-gradient(165deg, rgba(77,177,226,.14), transparent 46%),
+    var(--panel-strong);
+  box-shadow:
+    0 0 0 1px rgba(77, 177, 226, 0.12),
+    0 8px 18px rgba(0,0,0,.22);
+}
+.card.tba {
+  --glow: var(--tba-glow);
+  border-color: rgba(154, 172, 196, 0.3);
+  border-left-color: var(--tba-line);
+  background:
+    linear-gradient(165deg, rgba(154,172,196,.1), transparent 46%),
+    var(--panel-strong);
+}
+.cards .card:nth-child(1) { animation-delay: .02s; }
+.cards .card:nth-child(2) { animation-delay: .06s; }
+.cards .card:nth-child(3) { animation-delay: .1s; }
+.cards .card:nth-child(4) { animation-delay: .14s; }
+.cards .card:nth-child(5) { animation-delay: .18s; }
+.cards .card:nth-child(6) { animation-delay: .22s; }
+.cards .card:nth-child(7) { animation-delay: .26s; }
+.cards .card:nth-child(8) { animation-delay: .3s; }
+.cards .card:nth-child(9) { animation-delay: .34s; }
+.cards .card:nth-child(10) { animation-delay: .38s; }
+.card-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.65rem;
+  min-width: 0;
+}
+.card h3 {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: .01em;
+  color: var(--ink);
+  line-height: 1.3;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.card p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink2);
+  font-weight: 400;
+  flex: 1 1 auto;
+}
+.prog {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-top: 0.35rem;
+  margin-bottom: -0.15rem;
+}
+.prog-track {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.28rem;
+}
+.prog-track .seg {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+}
+.card.fixed .prog-track .seg.on {
+  background: var(--fixed);
+  box-shadow: 0 0 10px rgba(93,206,160,.35);
+}
+.card.next .prog-track .seg.on {
+  background: var(--next);
+  box-shadow: 0 0 10px rgba(77,177,226,.35);
+}
+.card.tba .prog-track .seg.on {
+  background: var(--tba);
+  box-shadow: 0 0 8px rgba(154,172,196,.25);
+}
+.prog-labels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.28rem;
+  margin-top: 0.22rem;
+  min-height: 0.95rem;
+}
+.prog-labels span {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  color: var(--ink3);
+  line-height: 1.15;
+  text-align: center;
+  opacity: .92;
+}
+.tag {
+  position: relative;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  letter-spacing: .03em;
+  white-space: nowrap;
+  flex: 0 1 auto;
+  max-width: 100%;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+}
+.tag.fixed {
+  background: var(--fixed-soft);
+  color: var(--fixed);
+  box-shadow: inset 0 0 0 1px rgba(93,206,160,.2), 0 0 14px rgba(93,206,160,.18);
+}
+.tag.next {
+  background: var(--next-soft);
+  color: var(--next);
+  box-shadow: inset 0 0 0 1px rgba(77,177,226,.22), 0 0 14px rgba(77,177,226,.18);
+}
+.tag.tba {
+  background: var(--tba-soft);
+  color: var(--tba);
+}
+footer {
+  margin-top: 1.75rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, rgba(77,177,226,.35), transparent) 1;
+  color: var(--ink3);
+  font-size: 0.8rem;
+}
+@keyframes card-in {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes hero-sheen {
+  0%, 100% { translate: -8% 0; opacity: .55; }
+  50% { translate: 42% 0; opacity: .9; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .lang-btn:hover { scale: 1.04; color: #fff; }
+  .lang-btn[aria-pressed="true"]:hover { color: var(--navy-deep); }
+  .brand-mark:hover {
+    scale: 1.03;
+    box-shadow:
+      0 0 0 1px rgba(77,177,226,.55),
+      0 0 36px rgba(77,177,226,.32),
+      0 16px 40px rgba(0,0,0,.55);
+  }
+  .cta:hover {
+    translate: 0 -2px;
+    scale: 1.03;
+    filter: brightness(1.05);
+  }
+  .cta.report:hover {
+    background: #6bc4ea;
+    box-shadow:
+      0 0 0 1px rgba(77,177,226,.4),
+      0 0 28px rgba(77,177,226,.4),
+      0 12px 30px rgba(0,0,0,.35);
+  }
+  .cta.store:hover svg { transform: scale(1.08); }
+  .chip:hover {
+    scale: 1.04;
+    border-color: rgba(77,177,226,.55);
+    box-shadow: 0 0 16px rgba(77,177,226,.18);
+  }
+  .chip[aria-pressed="true"]:hover {
+    box-shadow: 0 0 0 1px rgba(77,177,226,.45), 0 0 24px rgba(77,177,226,.42);
+  }
+  .lane-meta a:hover {
+    border-bottom-color: var(--cyan-hot);
+    text-shadow: 0 0 12px rgba(77,177,226,.45);
+  }
+  .card:hover {
+    translate: 0 -5px;
+    scale: 1.015;
+    z-index: 2;
+    border-color: color-mix(in srgb, var(--glow) 65%, white 10%);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--glow) 40%, transparent),
+      inset 0 0 28px color-mix(in srgb, var(--glow) 22%, transparent),
+      0 12px 24px rgba(0,0,0,.3);
+  }
+  .card:hover::after {
+    transform: translateX(120%);
+    opacity: 1;
+  }
+  .card.fixed:hover {
+    box-shadow:
+      0 0 0 1px rgba(93,206,160,.3),
+      inset 0 0 28px rgba(93,206,160,.14),
+      0 12px 24px rgba(0,0,0,.3);
+  }
+  .card.next:hover {
+    box-shadow:
+      0 0 0 1px rgba(77,177,226,.32),
+      inset 0 0 28px rgba(77,177,226,.16),
+      0 12px 24px rgba(0,0,0,.3);
+  }
+  .card.tba:hover {
+    box-shadow:
+      0 0 0 1px rgba(154,172,196,.24),
+      inset 0 0 24px rgba(154,172,196,.1),
+      0 12px 24px rgba(0,0,0,.3);
+  }
+}
+@media (max-width: 720px) {
+  .toolbar-sep { display: none; }
+  .toolbar { align-items: stretch; }
+  .updated { width: 100%; }
+  .cta.report { width: 100%; }
+  .store-row { width: 100%; }
+  .cta.store { flex: 1 1 calc(50% - 0.5rem); justify-content: center; }
+  .legend > span { width: 100%; }
+  .card-top { flex-direction: column; align-items: flex-start; }
+  .cards {
+    padding: 0.55rem 0.2rem 0.95rem;
+    margin: 0;
+    gap: 0.85rem;
+  }
+  body { background-attachment: scroll; }
+}
+@media (hover: hover) and (pointer: fine) and (max-width: 720px) {
+  .card:hover {
+    scale: 1.01;
+    translate: 0 -3px;
+  }
+}
+@media (max-width: 420px) {
+  .cta.store { flex-basis: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero::after,
+  .card { animation: none !important; }
+  .card {
+    opacity: 1;
+    translate: 0 0;
+  }
+  .lang-btn,
+  .brand-mark,
+  .cta,
+  .chip,
+  .card,
+  .card::after,
+  .lane-meta a,
+  .cta.store svg {
+    transition: none !important;
+  }
+  .brand-mark:hover,
+  .cta:hover,
+  .chip:hover,
+  .card:hover {
+    translate: none;
+    scale: none;
+    filter: none;
+  }
+  .card:hover::after { transform: translateX(-120%); opacity: 0; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div class="lang-switch" role="group" data-i18n-aria="langGroup" aria-label="Language">
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="true" title="English">
+          <span class="flag" aria-hidden="true">
+            <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg" focusable="false">
+              <rect width="60" height="30" fill="#012169"/>
+              <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" stroke-width="6"/>
+              <path d="M0 0 L60 30 M60 0 L0 30" stroke="#C8102E" stroke-width="2"/>
+              <path d="M30 0 V30 M0 15 H60" stroke="#fff" stroke-width="10"/>
+              <path d="M30 0 V30 M0 15 H60" stroke="#C8102E" stroke-width="6"/>
+            </svg>
+          </span>
+          <span>EN</span>
+        </button>
+        <button type="button" class="lang-btn" data-lang="pt" aria-pressed="false" title="Português">
+          <span class="flag" aria-hidden="true">
+            <svg viewBox="0 0 60 42" xmlns="http://www.w3.org/2000/svg" focusable="false">
+              <rect width="60" height="42" fill="#009C3B"/>
+              <polygon points="30,4 56,21 30,38 4,21" fill="#FFDF00"/>
+              <circle cx="30" cy="21" r="9" fill="#002776"/>
+              <path d="M21.5 19.5c3.2-2.2 8.2-2.8 12.8-1.4" fill="none" stroke="#fff" stroke-width="1.6"/>
+            </svg>
+          </span>
+          <span>PT</span>
+        </button>
+      </div>
+    </div>
+    <div class="brand-row">
+      <img class="brand-mark" alt="Case Solved: The London Files" width="460" height="215" decoding="async" fetchpriority="high" src="assets/brand/case-solved-banner.jpg">
+      <div class="brand-text">
+        <h1>CASE SOLVED</h1>
+        <p class="sub" data-i18n="subtitle">The London Files - Bug Status</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="toolbar">
+    <div class="toolbar-actions">
+      <a class="cta report" href="https://forms.clickup.com/30912035/f/xfbh3-45133/BWRJB9WH6CLFJD6R37" target="_blank" rel="noopener noreferrer" data-i18n="reportBug">Report a bug</a>
+      <span class="toolbar-sep" aria-hidden="true"></span>
+      <nav class="store-row" data-i18n-aria="storeNav" aria-label="Get the game">
+        <a class="cta store steam" href="https://store.steampowered.com/app/4127360/Case_Solved_The_London_Files/" target="_blank" rel="noopener noreferrer" title="Steam">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a10 10 0 0 0-10 9.34l5.4 2.23a2.9 2.9 0 0 1 1.66-.15l2.42-3.5v-.05a3.75 3.75 0 1 1 3.75 3.75h-.08l-3.45 2.47v.07a2.9 2.9 0 1 1-2.8-2.3l2.47-3.57a3.77 3.77 0 0 1 2.47-.93 2.5 2.5 0 1 0-2.49 2.5h.08l-3.52 2.52A2.9 2.9 0 0 1 4.5 16.4L2.2 15.45A10 10 0 1 0 12 2zm1.25 13.2a1.65 1.65 0 1 0 0 3.3 1.65 1.65 0 0 0 0-3.3zm3.5-8.95a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"/></svg>
+          Steam
+        </a>
+        <a class="cta store xbox" href="https://www.xbox.com/en-us/games/store/case-solved-the-london-files/9NN7208WF2BC" target="_blank" rel="noopener noreferrer" title="Xbox">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.1 3.9C6.2 2.4 8.9 1.5 12 1.5c3.1 0 5.8.9 7.9 2.4-.8 1-2.1 2.4-3.9 4.1C14.3 5.8 13.1 5 12 5s-2.3.8-4 3C6.2 6.3 4.9 4.9 4.1 3.9zm15.5 3.4c1.5 1.8 2.4 4.1 2.4 6.7 0 2.2-.6 4.2-1.7 5.9-1.5-1.4-3.5-3.4-5.6-5.9 2.2-2.5 3.7-4.7 4.9-6.7zM4.4 7.3c1.2 2 2.7 4.2 4.9 6.7-2.1 2.5-4.1 4.5-5.6 5.9A10.4 10.4 0 0 1 2 14c0-2.6.9-4.9 2.4-6.7zm7.6 7.5c1.7 2.1 3.5 3.8 5.1 5.2A10.4 10.4 0 0 1 12 22.5a10.4 10.4 0 0 1-5.1-2.5c1.6-1.4 3.4-3.1 5.1-5.2z"/></svg>
+          Xbox
+        </a>
+        <a class="cta store ps" href="https://store.playstation.com/en-us/concept/10019387" target="_blank" rel="noopener noreferrer" title="PlayStation">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.9 16.8c-1.7.55-3.2.58-4.2.17-.7-.3-1.05-.8-1.05-1.5 0-1.1 1-2 2.9-2.55l1.35-.35v-1.85l-1.9.55c-2.55.75-3.75 2.05-3.75 4.05 0 2.15 1.45 3.55 4.1 3.95 1.15.17 2.55.05 4.1-.4l.45-.17v-2.15l-2-.75zm4.05-9.85V20.5l2.55.85V4.35C15.5 2.55 14.55 1.7 12.85 1.7c-.7 0-1.45.2-2.15.55L8.9 3.15v2.35l1.9-.7c.55-.2.95-.15 1.15.15.15.2.2.55.2 1.15v.2l.8-.2zM19.2 14.05c-1-.35-2.05-.35-3.1 0l-.85.3v2.2l1.55-.5c.7-.2 1.15-.15 1.35.15.2.25.2.7.05 1.25-.2.7-.65 1.1-1.4 1.25-.5.1-1.15.05-1.9-.15l-.55-.15v2.15l.7.2c1.25.35 2.4.4 3.45.2 2.15-.4 3.25-1.7 3.25-3.85 0-1.55-.85-2.55-2.55-3.15z"/></svg>
+          PlayStation
+        </a>
+        <a class="cta store switch" href="https://www.nintendo.com/us/store/products/case-solved-the-london-files-switch/" target="_blank" rel="noopener noreferrer" title="Nintendo Switch">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.4 2.1H7.2C4.5 2.1 2.3 4.3 2.3 7v10c0 2.7 2.2 4.9 4.9 4.9h2.2V2.1zm-2.9 13.5a1.35 1.35 0 1 1 0-2.7 1.35 1.35 0 0 1 0 2.7zM16.8 2.1h-2.2v19.8h2.2c2.7 0 4.9-2.2 4.9-4.9V7c0-2.7-2.2-4.9-4.9-4.9zm.6 12.1a1.35 1.35 0 1 1 0-2.7 1.35 1.35 0 0 1 0 2.7z"/></svg>
+          Switch
+        </a>
+        <a class="cta store ios" href="https://apps.apple.com/us/app/case-solved-the-london-files/id6769660234" target="_blank" rel="noopener noreferrer" title="App Store">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16.4 12.7c0-2.1 1.7-3.1 1.8-3.2-1-1.4-2.5-1.6-3.1-1.6-1.3-.1-2.5.8-3.2.8-.7 0-1.7-.7-2.8-.7-1.4 0-2.8.9-3.5 2.2-1.5 2.6-.4 6.5 1.1 8.6.7 1 1.6 2.2 2.7 2.1 1.1 0 1.5-.7 2.8-.7s1.7.7 2.8.7c1.2 0 1.9-1 2.6-2 .8-1.2 1.1-2.3 1.1-2.4-.1 0-2.2-.8-2.3-3.8zM14.3 6.5c.6-.7 1-1.7.9-2.7-.9.1-1.9.6-2.5 1.3-.6.6-1.1 1.6-1 2.6 1 .1 1.9-.5 2.6-1.2z"/></svg>
+          App Store
+        </a>
+        <a class="cta store android" href="https://play.google.com/store/search?q=Case%20Solved%3A%20The%20London%20Files&c=apps" target="_blank" rel="noopener noreferrer" title="Google Play">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.2 2.7v18.6c0 .5.5.8 1 .5l10.4-6-4.4-4.4L3.7 2.4c-.4-.3-.5-.1-.5.3zm12.1 7.1-2.4 2.4 5.3 5.3c.5.5 1.3.1 1.3-.5V6.4c0-.6-.8-1-1.3-.5l-2.9 2.9zM4.5 2.1l8.7 8.7 2.5-2.5L5.5 1.6c-.5-.4-1 0-1 .5zM4.5 21.9c.4.4.9.1 1-.2l10.2-5.9-2.5-2.5-8.7 8.6z"/></svg>
+          Google Play
+        </a>
+      </nav>
+    </div>
+    <p class="updated"><span data-i18n="updated">Updated</span> <time datetime="2026-07-30" data-i18n="updatedDate">Jul 30, 2026</time></p>
+  </div>
+
+  <div class="legend panel-surface" data-i18n-aria="legend" aria-label="Status legend">
+    <span><span class="tag fixed" data-i18n="tagFixed">Fixed v1.0.1</span> <span class="hint" data-i18n="hintFixed">live now</span></span>
+    <span><span class="tag next">v1.0.2</span> <span class="hint" data-i18n="hintNext">In progress for the next patch</span></span>
+    <span><span class="tag tba">TBA</span> <span class="hint" data-i18n="hintTba">Known issues — no release window yet</span></span>
+  </div>
+
+  <div class="filters" id="filters" role="group" data-i18n-aria="filters" aria-label="Filter by update">
+    <button type="button" class="chip" data-filter="All" aria-pressed="true" data-i18n="filterAll">All</button>
+    <button type="button" class="chip" data-filter="fixed" aria-pressed="false" data-i18n="tagFixed">Fixed</button>
+    <button type="button" class="chip" data-filter="next" aria-pressed="false">v1.0.2</button>
+    <button type="button" class="chip" data-filter="tba" aria-pressed="false">TBA</button>
+  </div>
+
+  <div id="board"></div>
+
+  <noscript>
+    <p class="intro panel-surface">JavaScript is required to filter issues. Enable scripts to switch language and filter the board. / É preciso JavaScript para filtrar. Ative os scripts para trocar o idioma e filtrar o quadro.</p>
+  </noscript>
+
+  <footer>
+    <p data-i18n="footer">Case Solved: The London Files - Bug Status</p>
+  </footer>
+</main>
+
+<script>
+const ALLOWED_TONES = Object.freeze({ fixed: true, next: true, tba: true });
+const ALLOWED_LANGS = Object.freeze({ en: true, pt: true });
+const LANG_KEY = "cs-bugstatus-lang";
+
+const I18N = Object.freeze({
+  en: Object.freeze({
+    htmlLang: "en",
+    title: "Case Solved - Bug Status",
+    description: "Case Solved: The London Files bug status. See what is fixed, what is coming next, and what is still TBA.",
+    skip: "Skip to content",
+    langGroup: "Language",
+    subtitle: "The London Files - Bug Status",
+    reportBug: "Report a bug",
+    storeNav: "Get the game",
+    updated: "Updated",
+    updatedDate: "Jul 30, 2026",
+    legend: "Status legend",
+    tagFixed: "Fixed v1.0.1",
+    hintFixed: "live now",
+    hintNext: "In progress for the next patch",
+    hintTba: "Known issues — no release window yet",
+    filters: "Filter by update",
+    filterAll: "All",
+    footer: "Case Solved: The London Files - Bug Status",
+    issueOne: "issue",
+    issueMany: "issues",
+    patchNotesLabel: "Steam patch notes",
+    releasedLabel: "Published July 30, 2026",
+    progWaiting: "Waiting",
+    progInvestigating: "Investigating",
+    progInProgress: "In Progress",
+    progInQA: "In QA",
+    progReady: "Ready for fix",
+    progFixed: "Fixed",
+    lanes: Object.freeze([
+      Object.freeze({
+        id: "fixed",
+        title: "Fixed in v1.0.1",
+        note: "",
+        tag: "Fixed v1.0.1",
+        tone: "fixed",
+        released: "2026-07-30",
+        patchNotesUrl: "https://store.steampowered.com/news/app/4127360/view/686386819418293538",
+        items: Object.freeze([
+          Object.freeze({ title: "Case 3 Stage 4 clues", blurb: "Clues now use items from different categories so the deduction stays solvable.", steps: 3 }),
+          Object.freeze({ title: "Case 3 comics voices", blurb: "Each character now uses the correct voice.", steps: 3 }),
+          Object.freeze({ title: "Classified / Secret Files saving", blurb: "Unlocks and completed progress now save after leaving the menu or restarting.", steps: 3 }),
+          Object.freeze({ title: "Newspaper cutscene spelling", blurb: "Newspaper cutscene art now shows Mystery instead of Mistery.", steps: 3 }),
+          Object.freeze({ title: "Improved phrases RU / UK / PL / CZ", blurb: "Improved phrases in Russian, Ukrainian, Polish and Czech for Cases 2 and 3.", steps: 3 })
+        ])
+      }),
+      Object.freeze({
+        id: "next",
+        title: "In progress for the next patch",
+        note: "These issues are lined up for the next update.",
+        tag: "v1.0.2",
+        tone: "next",
+        items: Object.freeze([
+          Object.freeze({ title: "Case 404 softlock", blurb: "Case 404 can softlock and stop you from leaving the screen.", steps: 3 }),
+          Object.freeze({ title: "Case 3 ending hardlock", blurb: "Finishing Case 3 can hardlock the game.", steps: 2 }),
+          Object.freeze({ title: "Pause softlock on clues screen", blurb: "Opening pause on the clues screen can softlock the game.", steps: 1 }),
+          Object.freeze({ title: "Secret Files freeze after code", blurb: "Opening a secret level after entering a code can freeze the game.", steps: 1 }),
+          Object.freeze({ title: "Case 3 may not unlock after Case 2", blurb: "Finishing Case 2 may not unlock Case 3.", steps: 1 }),
+          Object.freeze({ title: "Theater dressing room cat", blurb: "In the theater dressing room, the cat click does not register and the round cannot finish.", steps: 1 }),
+          Object.freeze({ title: "Demo progress and achievements", blurb: "Demo progress can carry into the full game, and related achievements may not unlock.", steps: 1 })
+        ])
+      }),
+      Object.freeze({
+        id: "tba",
+        title: "Known issues",
+        note: "No release window yet — TBA means To Be Announced.",
+        tag: "TBA",
+        tone: "tba",
+        items: Object.freeze([
+          Object.freeze({ title: "Hint system loop", blurb: "The hint system can only repeat same-level info and may leave a stage without a solution.", steps: 1 }),
+          Object.freeze({ title: "Report a Bug overlay on Classified", blurb: "Opening Classified too fast after starting the game can leave the “Report a Bug” button over the case grid.", steps: 2 }),
+          Object.freeze({ title: "Ultrawide display support", blurb: "Ultrawide resolutions may be stuck or unresponsive.", steps: 1 }),
+          Object.freeze({ title: "Characters ignoring clicks", blurb: "Some clickable characters do not respond.", steps: 2 }),
+          Object.freeze({ title: "Clue validation error", blurb: "Some clues are being validated incorrectly or not validated at all.", steps: 2 }),
+          Object.freeze({ title: "Repeated cat clue", blurb: "In Case 3 Stage 5, police repeats the cat clue from Stage 4.", steps: 3 }),
+          Object.freeze({ title: "Awkward Day Off line", blurb: "Case 3 Stage 1 (EN): awkward phrasing with the use of “Day Off”.", steps: 1 }),
+          Object.freeze({ title: "Misplaced my uncle line", blurb: "Case 3 Stage 5 (EN): detective says “my uncle” in the wrong place.", steps: 1 }),
+          Object.freeze({ title: "Korean deduction table text", blurb: "Korean translation quality is poor in deduction tables.", steps: 1 })
+        ])
+      })
+    ])
+  }),
+  pt: Object.freeze({
+    htmlLang: "pt-BR",
+    title: "Case Solved - Status de Bugs",
+    description: "Status de bugs de Case Solved: The London Files. Veja o que já foi corrigido, o que vem no próximo patch e o que ainda está TBA.",
+    skip: "Ir para o conteúdo",
+    langGroup: "Idioma",
+    subtitle: "The London Files - Status de Bugs",
+    reportBug: "Reportar um bug",
+    storeNav: "Pegue o jogo",
+    updated: "Atualizado",
+    updatedDate: "30 de jul. de 2026",
+    legend: "Legenda de status",
+    tagFixed: "Corrigido v1.0.1",
+    hintFixed: "já disponível",
+    hintNext: "Em andamento para o próximo patch",
+    hintTba: "Problemas conhecidos — sem janela de lançamento",
+    filters: "Filtrar por update",
+    filterAll: "Todos",
+    footer: "Case Solved: The London Files - Status de Bugs",
+    issueOne: "problema",
+    issueMany: "problemas",
+    patchNotesLabel: "Patch notes na Steam",
+    releasedLabel: "Publicado em 30 de julho de 2026",
+    progWaiting: "Aguardando",
+    progInvestigating: "Investigando",
+    progInProgress: "Em andamento",
+    progInQA: "Em QA",
+    progReady: "Pronto para correção",
+    progFixed: "Corrigido",
+    lanes: Object.freeze([
+      Object.freeze({
+        id: "fixed",
+        title: "Corrigido na v1.0.1",
+        note: "",
+        tag: "Corrigido v1.0.1",
+        tone: "fixed",
+        released: "2026-07-30",
+        patchNotesUrl: "https://store.steampowered.com/news/app/4127360/view/686386819418293538",
+        items: Object.freeze([
+          Object.freeze({ title: "Pistas do Case 3 Stage 4", blurb: "As pistas agora usam itens de categorias diferentes para a dedução continuar solucionável.", steps: 3 }),
+          Object.freeze({ title: "Vozes dos quadrinhos do Case 3", blurb: "Cada personagem agora usa a voz correta.", steps: 3 }),
+          Object.freeze({ title: "Salvamento de Classified / Secret Files", blurb: "Desbloqueios e progresso concluído agora salvam ao sair do menu ou reiniciar.", steps: 3 }),
+          Object.freeze({ title: "Ortografia da cutscene do jornal", blurb: "A arte da cutscene do jornal agora mostra Mystery em vez de Mistery.", steps: 3 }),
+          Object.freeze({ title: "Frases melhoradas RU / UK / PL / CZ", blurb: "Frases melhoradas em russo, ucraniano, polonês e tcheco nos Cases 2 e 3.", steps: 3 })
+        ])
+      }),
+      Object.freeze({
+        id: "next",
+        title: "Em andamento para o próximo patch",
+        note: "Esses problemas estão na fila do próximo update.",
+        tag: "v1.0.2",
+        tone: "next",
+        items: Object.freeze([
+          Object.freeze({ title: "Softlock no Case 404", blurb: "O Case 404 pode softlockar e impedir de sair da tela.", steps: 3 }),
+          Object.freeze({ title: "Hardlock no final do Case 3", blurb: "Terminar o Case 3 pode travar o jogo (hardlock).", steps: 2 }),
+          Object.freeze({ title: "Softlock no pause com tela de pistas", blurb: "Abrir o pause na tela de pistas pode softlockar o jogo.", steps: 1 }),
+          Object.freeze({ title: "Congelamento no Secret Files após código", blurb: "Abrir um nível secreto depois de um código pode congelar o jogo.", steps: 1 }),
+          Object.freeze({ title: "Case 3 pode não desbloquear após Case 2", blurb: "Terminar o Case 2 pode não liberar o Case 3.", steps: 1 }),
+          Object.freeze({ title: "Gato no camarim do teatro", blurb: "No camarim do teatro, o clique no gato não registra e a rodada não termina.", steps: 1 }),
+          Object.freeze({ title: "Progresso da demo e conquistas", blurb: "O progresso da demo pode subir na versão completa, e conquistas relacionadas podem não desbloquear.", steps: 1 })
+        ])
+      }),
+      Object.freeze({
+        id: "tba",
+        title: "Problemas conhecidos",
+        note: "Sem janela de lançamento — TBA significa To Be Announced (a anunciar).",
+        tag: "TBA",
+        tone: "tba",
+        items: Object.freeze([
+          Object.freeze({ title: "Loop do sistema de dicas", blurb: "O sistema de dicas só repete informação do mesmo nível e pode deixar um stage sem solução.", steps: 1 }),
+          Object.freeze({ title: "Overlay Report a Bug em Classified", blurb: "Abrir Classified rápido demais após iniciar o jogo pode deixar o botão de “Report a Bug” por cima da grade de casos.", steps: 2 }),
+          Object.freeze({ title: "Suporte a ultrawide", blurb: "Resoluções ultrawide podem ficar travadas ou não responsivas.", steps: 1 }),
+          Object.freeze({ title: "Personagens ignorando cliques", blurb: "Alguns personagens clicáveis não respondem.", steps: 2 }),
+          Object.freeze({ title: "Erro na validação da pista", blurb: "Algumas pistas estão sendo validadas incorretamente ou não validadas.", steps: 2 }),
+          Object.freeze({ title: "Pista do gato repetida", blurb: "No Case 3 Stage 5, a polícia repete a pista do gato do Stage 4.", steps: 3 }),
+          Object.freeze({ title: "Linha estranha de day off", blurb: "Case 3 Stage 1 (EN): frase soando estranha com uso do “Day Off”.", steps: 1 }),
+          Object.freeze({ title: "Linha my uncle fora do lugar", blurb: "Case 3 Stage 5 (EN): o detetive diz “my uncle” no lugar errado.", steps: 1 }),
+          Object.freeze({ title: "Texto coreano na tabela de dedução", blurb: "A qualidade da tradução coreana é fraca nas tabelas de dedução.", steps: 1 })
+        ])
+      })
+    ])
+  })
+});
+
+let currentLang = "en";
+let currentFilter = "All";
+
+function esc(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function toneClass(tone) {
+  return ALLOWED_TONES[tone] ? tone : "tba";
+}
+
+function safeSteamNewsUrl(url) {
+  try {
+    const u = new URL(String(url));
+    if (u.protocol !== "https:") return "";
+    if (u.hostname !== "store.steampowered.com") return "";
+    if (!u.pathname.startsWith("/news/")) return "";
+    return u.href;
+  } catch (_) {
+    return "";
+  }
+}
+
+function detectLang() {
+  try {
+    const q = new URLSearchParams(window.location.search).get("lang");
+    if (q && ALLOWED_LANGS[q]) return q;
+  } catch (_) {}
+  try {
+    const stored = localStorage.getItem(LANG_KEY);
+    if (stored && ALLOWED_LANGS[stored]) return stored;
+  } catch (_) {}
+  return "en";
+}
+
+function t() {
+  return I18N[currentLang] || I18N.en;
+}
+
+function applyStaticI18n() {
+  const dict = t();
+  document.documentElement.lang = dict.htmlLang;
+  document.title = dict.title;
+  const meta = document.querySelector('meta[name="description"]');
+  if (meta) meta.setAttribute("content", dict.description);
+
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    if (key && dict[key] != null) el.textContent = dict[key];
+  });
+  document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-aria");
+    if (key && dict[key] != null) el.setAttribute("aria-label", dict[key]);
+  });
+
+  document.querySelectorAll(".lang-btn").forEach((btn) => {
+    btn.setAttribute("aria-pressed", btn.dataset.lang === currentLang ? "true" : "false");
+  });
+}
+
+function laneMeta(lane, dict) {
+  const parts = [];
+  if (lane.released) {
+    parts.push('<time datetime="' + esc(lane.released) + '">' + esc(dict.releasedLabel) + '</time>');
+  }
+  const href = lane.patchNotesUrl ? safeSteamNewsUrl(lane.patchNotesUrl) : "";
+  if (href) {
+    parts.push(
+      '<a href="' + esc(href) + '" target="_blank" rel="noopener noreferrer">' +
+        esc(dict.patchNotesLabel) +
+      '</a>'
+    );
+  }
+  return parts.length ? '<p class="lane-meta">' + parts.join('<span aria-hidden="true">·</span>') + '</p>' : "";
+}
+
+function progressHtml(tone, steps, dict) {
+  const filled = Math.max(1, Math.min(3, Number(steps) || 1));
+  const labels = ["", "", ""];
+  const last = filled - 1;
+
+  if (tone === "fixed") {
+    labels[2] = dict.progFixed;
+  } else if (tone === "next") {
+    if (filled >= 3) labels[2] = dict.progInQA;
+    else if (filled >= 2) labels[1] = dict.progInProgress;
+    else labels[0] = dict.progInvestigating;
+  } else {
+    if (filled >= 3) labels[2] = dict.progReady;
+    else if (filled >= 2) labels[1] = dict.progInvestigating;
+    else labels[0] = dict.progWaiting;
+  }
+
+  const segs = [0, 1, 2].map((i) =>
+    '<span class="seg' + (i < filled ? " on" : "") + '"></span>'
+  ).join("");
+  const labs = labels.map((lab) => "<span>" + (lab ? esc(lab) : "") + "</span>").join("");
+
+  return (
+    '<div class="prog" aria-hidden="true">' +
+      '<div class="prog-track">' + segs + '</div>' +
+      '<div class="prog-labels">' + labs + '</div>' +
+    '</div>'
+  );
+}
+
+function render(filter) {
+  currentFilter = filter || currentFilter;
+  const board = document.getElementById("board");
+  if (!board) return;
+  const dict = t();
+  const lanes = dict.lanes;
+
+  const html = lanes.map((lane) => {
+    const tone = toneClass(lane.tone);
+    const hide = currentFilter !== "All" && currentFilter !== lane.id;
+    const countLabel = lane.items.length === 1 ? dict.issueOne : dict.issueMany;
+    const cards = lane.items.map((it) => (
+      '<article class="card ' + tone + '">' +
+        '<div class="card-top">' +
+          '<h3>' + esc(it.title) + '</h3>' +
+          '<span class="tag ' + tone + '">' + esc(lane.tag) + '</span>' +
+        '</div>' +
+        '<p>' + esc(it.blurb) + '</p>' +
+        progressHtml(tone, it.steps, dict) +
+      '</article>'
+    )).join("");
+
+    return (
+      '<section class="lane" data-lane="' + esc(lane.id) + '"' + (hide ? " hidden" : "") + '>' +
+        '<div class="lane-head">' +
+          '<h2>' + esc(lane.title) + '</h2>' +
+          '<span class="count">' + lane.items.length + ' ' + esc(countLabel) + '</span>' +
+        '</div>' +
+        (lane.note ? '<p class="lane-note">' + esc(lane.note) + '</p>' : '') +
+        laneMeta(lane, dict) +
+        '<div class="cards">' + cards + '</div>' +
+      '</section>'
+    );
+  }).join("");
+
+  board.replaceChildren();
+  board.insertAdjacentHTML("afterbegin", html);
+}
+
+function setLang(lang) {
+  if (!ALLOWED_LANGS[lang]) return;
+  currentLang = lang;
+  try { localStorage.setItem(LANG_KEY, lang); } catch (_) {}
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", lang);
+    history.replaceState(null, "", url);
+  } catch (_) {}
+  applyStaticI18n();
+  render(currentFilter);
+}
+
+document.getElementById("filters").addEventListener("click", (e) => {
+  const btn = e.target.closest(".chip");
+  const filters = document.getElementById("filters");
+  if (!btn || !filters.contains(btn)) return;
+  const next = btn.dataset.filter;
+  if (!next) return;
+  filters.querySelectorAll(".chip").forEach((chip) => {
+    chip.setAttribute("aria-pressed", chip === btn ? "true" : "false");
+  });
+  render(next);
+});
+
+document.querySelector(".lang-switch").addEventListener("click", (e) => {
+  const btn = e.target.closest(".lang-btn");
+  if (!btn) return;
+  setLang(btn.dataset.lang);
+});
+
+setLang(detectLang());
+</script>
+</body>
+</html>
