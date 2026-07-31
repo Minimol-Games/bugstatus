@@ -880,7 +880,7 @@ const I18N = Object.freeze({
     tagFixed: "Fixed v1.0.1",
     hintFixed: "live now",
     hintNext: "In progress for the next patch",
-    hintTba: "Known issues — no release window yet",
+    hintTba: "Known issues — no date yet",
     filters: "Filter by update",
     filterAll: "All",
     footer: "Case Solved: The London Files - Bug Status",
@@ -904,45 +904,45 @@ const I18N = Object.freeze({
         released: "2026-07-30",
         patchNotesUrl: "https://store.steampowered.com/news/app/4127360/view/686386819418293538",
         items: Object.freeze([
-          Object.freeze({ title: "Case 3 Stage 4 clues", blurb: "Clues now use items from different categories so the deduction stays solvable.", steps: 3 }),
-          Object.freeze({ title: "Case 3 comics voices", blurb: "Each character now uses the correct voice.", steps: 3 }),
-          Object.freeze({ title: "Classified / Secret Files saving", blurb: "Unlocks and completed progress now save after leaving the menu or restarting.", steps: 3 }),
-          Object.freeze({ title: "Newspaper cutscene spelling", blurb: "Newspaper cutscene art now shows Mystery instead of Mistery.", steps: 3 }),
-          Object.freeze({ title: "Improved phrases RU / UK / PL / CZ", blurb: "Improved phrases in Russian, Ukrainian, Polish and Czech for Cases 2 and 3.", steps: 3 })
+          Object.freeze({ title: "Case 3 Stage 4 clues", blurb: "Clues now mix different categories, so the puzzle stays solvable.", steps: 3 }),
+          Object.freeze({ title: "Case 3 comics voices", blurb: "Each character uses the correct voice.", steps: 3 }),
+          Object.freeze({ title: "Classified / Secret Files saving", blurb: "Unlocks and finished progress stick after you leave the menu or restart.", steps: 3 }),
+          Object.freeze({ title: "Newspaper cutscene spelling", blurb: "The newspaper art now reads Mystery, not Mistery.", steps: 3 }),
+          Object.freeze({ title: "Phrases in RU / UK / PL / CZ", blurb: "Clearer wording in Russian, Ukrainian, Polish, and Czech for Cases 2 and 3.", steps: 3 })
         ])
       }),
       Object.freeze({
         id: "next",
         title: "In progress for the next patch",
-        note: "These issues are lined up for the next update.",
+        note: "Queued for the next update.",
         tag: "v1.0.2",
         tone: "next",
         items: Object.freeze([
-          Object.freeze({ title: "Case 404 softlock", blurb: "Case 404 can softlock and stop you from leaving the screen.", steps: 3 }),
-          Object.freeze({ title: "Case 3 ending hardlock", blurb: "Finishing Case 3 can hardlock the game.", steps: 2 }),
-          Object.freeze({ title: "Pause softlock on clues screen", blurb: "Opening pause on the clues screen can softlock the game.", steps: 1 }),
-          Object.freeze({ title: "Secret Files freeze after code", blurb: "Opening a secret level after entering a code can freeze the game.", steps: 1 }),
-          Object.freeze({ title: "Case 3 may not unlock after Case 2", blurb: "Finishing Case 2 may not unlock Case 3.", steps: 1 }),
-          Object.freeze({ title: "Theater dressing room cat", blurb: "In the theater dressing room, the cat click does not register, so you cannot finish the level.", steps: 1 }),
-          Object.freeze({ title: "Demo progress and achievements", blurb: "Progress from the demo can carry over into the full game, and related achievements may not unlock.", steps: 1 })
+          Object.freeze({ title: "Case 404 lock-up", blurb: "Case 404 can lock up and leave you stuck on that screen.", steps: 3 }),
+          Object.freeze({ title: "Case 3 ending lock-up", blurb: "Finishing Case 3 can lock up the game.", steps: 2 }),
+          Object.freeze({ title: "Pause on clues screen", blurb: "Opening pause on the clues screen can lock up the game.", steps: 1 }),
+          Object.freeze({ title: "Secret Files after a code", blurb: "Opening a secret level right after a code can lock up the game.", steps: 1 }),
+          Object.freeze({ title: "Case 3 unlock after Case 2", blurb: "Finishing Case 2 sometimes does not unlock Case 3.", steps: 1 }),
+          Object.freeze({ title: "Theater dressing room cat", blurb: "In the dressing room, clicks on the cat do not register, so you cannot finish the level.", steps: 1 }),
+          Object.freeze({ title: "Demo progress and achievements", blurb: "Progress from the demo can show up in the full game, and related achievements may stay locked.", steps: 1 })
         ])
       }),
       Object.freeze({
         id: "tba",
         title: "Known issues",
-        note: "No release window yet — TBA means To Be Announced.",
+        note: "No date yet. TBA = To Be Announced.",
         tag: "TBA",
         tone: "tba",
         items: Object.freeze([
-          Object.freeze({ title: "Hint system loop", blurb: "The hint system can only repeat same-level info and may leave a stage without a solution.", steps: 1 }),
-          Object.freeze({ title: "Report a Bug overlay on Classified", blurb: "Opening Classified too fast after starting the game can leave the “Report a Bug” button over the case grid.", steps: 2 }),
-          Object.freeze({ title: "Ultrawide display support", blurb: "Ultrawide resolutions may be stuck or unresponsive.", steps: 1 }),
-          Object.freeze({ title: "Characters ignoring clicks", blurb: "Some clickable characters do not respond.", steps: 2 }),
-          Object.freeze({ title: "Clue validation error", blurb: "Some clues are being validated incorrectly or not validated at all.", steps: 2 }),
-          Object.freeze({ title: "Repeated cat clue", blurb: "In Case 3 Stage 5, police repeats the cat clue from Stage 4.", steps: 3 }),
-          Object.freeze({ title: "Awkward Day Off line", blurb: "Case 3 Stage 1 (EN): awkward phrasing with the use of “Day Off”.", steps: 1 }),
-          Object.freeze({ title: "Misplaced my uncle line", blurb: "Case 3 Stage 5 (EN): detective says “my uncle” in the wrong place.", steps: 1 }),
-          Object.freeze({ title: "Korean deduction table text", blurb: "Korean translation quality is poor in deduction tables.", steps: 1 })
+          Object.freeze({ title: "Hint system loop", blurb: "Hints only recycle info from the same stage and can leave the puzzle with no clean path.", steps: 1 }),
+          Object.freeze({ title: "Report a Bug over Classified", blurb: "Opening Classified too fast after boot can leave the Report a Bug button on top of the case grid.", steps: 2 }),
+          Object.freeze({ title: "Ultrawide display", blurb: "Ultrawide resolutions can freeze or stop responding.", steps: 1 }),
+          Object.freeze({ title: "Characters that ignore clicks", blurb: "Some clickable characters do nothing when clicked.", steps: 2 }),
+          Object.freeze({ title: "Clue validation", blurb: "Some clues accept the wrong answer, or reject a correct one.", steps: 2 }),
+          Object.freeze({ title: "Repeated cat clue", blurb: "In Case 3 Stage 5, the police repeat the Stage 4 cat clue.", steps: 3 }),
+          Object.freeze({ title: "Awkward “Day Off” line", blurb: "Case 3 Stage 1 (EN): the “Day Off” line reads oddly.", steps: 1 }),
+          Object.freeze({ title: "Misplaced “my uncle”", blurb: "Case 3 Stage 5 (EN): the detective says “my uncle” in the wrong spot.", steps: 1 }),
+          Object.freeze({ title: "Korean deduction tables", blurb: "Korean text in the deduction tables is hard to follow.", steps: 1 })
         ])
       })
     ])
@@ -955,15 +955,15 @@ const I18N = Object.freeze({
     langGroup: "Idioma",
     subtitle: "The London Files - Status de Bugs",
     reportBug: "Reportar um bug",
-    storeNav: "Pegue o jogo",
+    storeNav: "Comprar o jogo",
     updated: "Atualizado",
     updatedDate: "30 de jul. de 2026",
     legend: "Legenda de status",
     tagFixed: "Corrigido v1.0.1",
     hintFixed: "já disponível",
     hintNext: "Em andamento para o próximo patch",
-    hintTba: "Problemas conhecidos — sem janela de lançamento",
-    filters: "Filtrar por update",
+    hintTba: "Problemas conhecidos — sem data ainda",
+    filters: "Filtrar por atualização",
     filterAll: "Todos",
     footer: "Case Solved: The London Files - Status de Bugs",
     issueOne: "problema",
@@ -986,45 +986,45 @@ const I18N = Object.freeze({
         released: "2026-07-30",
         patchNotesUrl: "https://store.steampowered.com/news/app/4127360/view/686386819418293538",
         items: Object.freeze([
-          Object.freeze({ title: "Pistas do Case 3 Stage 4", blurb: "As pistas agora usam itens de categorias diferentes para a dedução continuar solucionável.", steps: 3 }),
-          Object.freeze({ title: "Vozes dos quadrinhos do Case 3", blurb: "Cada personagem agora usa a voz correta.", steps: 3 }),
-          Object.freeze({ title: "Salvamento de Classified / Secret Files", blurb: "Desbloqueios e progresso concluído agora salvam ao sair do menu ou reiniciar.", steps: 3 }),
-          Object.freeze({ title: "Ortografia da cutscene do jornal", blurb: "A arte da cutscene do jornal agora mostra Mystery em vez de Mistery.", steps: 3 }),
-          Object.freeze({ title: "Frases melhoradas RU / UK / PL / CZ", blurb: "Frases melhoradas em russo, ucraniano, polonês e tcheco nos Cases 2 e 3.", steps: 3 })
+          Object.freeze({ title: "Pistas do Case 3 · Fase 4", blurb: "As pistas agora misturam categorias diferentes, e o puzzle fecha com lógica.", steps: 3 }),
+          Object.freeze({ title: "Vozes dos quadrinhos do Case 3", blurb: "Cada personagem usa a voz certa.", steps: 3 }),
+          Object.freeze({ title: "Salvamento de Classified / Secret Files", blurb: "Desbloqueios e progresso concluído ficam salvos ao sair do menu ou reiniciar.", steps: 3 }),
+          Object.freeze({ title: "Ortografia na cutscene do jornal", blurb: "Na arte do jornal, Mystery no lugar de Mistery.", steps: 3 }),
+          Object.freeze({ title: "Frases em RU / UK / PL / CZ", blurb: "Texto mais claro em russo, ucraniano, polonês e tcheco nos Cases 2 e 3.", steps: 3 })
         ])
       }),
       Object.freeze({
         id: "next",
         title: "Em andamento para o próximo patch",
-        note: "Esses problemas estão na fila do próximo update.",
+        note: "Na fila do próximo update.",
         tag: "v1.0.2",
         tone: "next",
         items: Object.freeze([
-          Object.freeze({ title: "Travamento no Case 404", blurb: "O Case 404 pode travar e impedir de sair da tela.", steps: 3 }),
-          Object.freeze({ title: "Travamento no final do Case 3", blurb: "Terminar o Case 3 pode travar o jogo.", steps: 2 }),
-          Object.freeze({ title: "Travamento no pause com tela de pistas", blurb: "Abrir o pause na tela de pistas pode travar o jogo.", steps: 1 }),
-          Object.freeze({ title: "Travamento no Secret Files após código", blurb: "Abrir um nível secreto depois de um código pode travar o jogo.", steps: 1 }),
-          Object.freeze({ title: "Case 3 pode não desbloquear após Case 2", blurb: "Terminar o Case 2 pode não liberar o Case 3.", steps: 1 }),
-          Object.freeze({ title: "Gato no camarim do teatro", blurb: "No camarim do teatro, o clique no gato não registra e não é possível terminar o nível.", steps: 1 }),
-          Object.freeze({ title: "Progresso da demo e conquistas", blurb: "O progresso feito na demo pode aparecer na versão completa, e as conquistas relacionadas podem não liberar.", steps: 1 })
+          Object.freeze({ title: "Travamento no Case 404", blurb: "O Case 404 trava e você não consegue sair da tela.", steps: 3 }),
+          Object.freeze({ title: "Travamento no final do Case 3", blurb: "Ao terminar o Case 3, o jogo pode travar.", steps: 2 }),
+          Object.freeze({ title: "Pause na tela de pistas", blurb: "Abrir o pause na tela de pistas pode travar o jogo.", steps: 1 }),
+          Object.freeze({ title: "Secret Files depois do código", blurb: "Abrir um nível secreto logo após um código pode travar o jogo.", steps: 1 }),
+          Object.freeze({ title: "Case 3 não libera após o Case 2", blurb: "Terminar o Case 2 às vezes não libera o Case 3.", steps: 1 }),
+          Object.freeze({ title: "Gato no camarim do teatro", blurb: "No camarim, o clique no gato não registra e você não consegue terminar o nível.", steps: 1 }),
+          Object.freeze({ title: "Progresso da demo e conquistas", blurb: "O progresso da demo pode aparecer na versão completa, e as conquistas ligadas a ele podem não liberar.", steps: 1 })
         ])
       }),
       Object.freeze({
         id: "tba",
         title: "Problemas conhecidos",
-        note: "Sem janela de lançamento — TBA significa To Be Announced (a anunciar).",
+        note: "Sem data ainda. TBA = a anunciar.",
         tag: "TBA",
         tone: "tba",
         items: Object.freeze([
-          Object.freeze({ title: "Loop do sistema de dicas", blurb: "O sistema de dicas só repete informação do mesmo nível e pode deixar um stage sem solução.", steps: 1 }),
-          Object.freeze({ title: "Overlay Report a Bug em Classified", blurb: "Abrir Classified rápido demais após iniciar o jogo pode deixar o botão de “Report a Bug” por cima da grade de casos.", steps: 2 }),
-          Object.freeze({ title: "Suporte a ultrawide", blurb: "Resoluções ultrawide podem ficar travadas ou não responsivas.", steps: 1 }),
-          Object.freeze({ title: "Personagens ignorando cliques", blurb: "Alguns personagens clicáveis não respondem.", steps: 2 }),
-          Object.freeze({ title: "Erro na validação da pista", blurb: "Algumas pistas estão sendo validadas incorretamente ou não validadas.", steps: 2 }),
-          Object.freeze({ title: "Pista do gato repetida", blurb: "No Case 3 Stage 5, a polícia repete a pista do gato do Stage 4.", steps: 3 }),
-          Object.freeze({ title: "Linha estranha de day off", blurb: "Case 3 Stage 1 (EN): frase soando estranha com uso do “Day Off”.", steps: 1 }),
-          Object.freeze({ title: "Linha my uncle fora do lugar", blurb: "Case 3 Stage 5 (EN): o detetive diz “my uncle” no lugar errado.", steps: 1 }),
-          Object.freeze({ title: "Texto coreano na tabela de dedução", blurb: "A qualidade da tradução coreana é fraca nas tabelas de dedução.", steps: 1 })
+          Object.freeze({ title: "Loop do sistema de dicas", blurb: "As dicas só repetem o que já está no nível e podem deixar o puzzle sem saída.", steps: 1 }),
+          Object.freeze({ title: "Botão Report a Bug em cima do Classified", blurb: "Abrir o Classified rápido demais depois de iniciar pode deixar o botão Report a Bug por cima da grade de casos.", steps: 2 }),
+          Object.freeze({ title: "Tela ultrawide", blurb: "Em resolução ultrawide o jogo pode travar ou parar de responder.", steps: 1 }),
+          Object.freeze({ title: "Personagens que ignoram clique", blurb: "Alguns personagens clicáveis não reagem ao clique.", steps: 2 }),
+          Object.freeze({ title: "Validação de pista", blurb: "Algumas pistas aceitam resposta errada, ou rejeitam a certa.", steps: 2 }),
+          Object.freeze({ title: "Pista do gato repetida", blurb: "No Case 3 · Fase 5, a polícia repete a pista do gato da Fase 4.", steps: 3 }),
+          Object.freeze({ title: "Fala estranha com “Day Off”", blurb: "Case 3 · Fase 1 (EN): a fala com “Day Off” soa estranha.", steps: 1 }),
+          Object.freeze({ title: "“My uncle” no lugar errado", blurb: "Case 3 · Fase 5 (EN): o detetive diz “my uncle” no lugar errado.", steps: 1 }),
+          Object.freeze({ title: "Coreano nas tabelas de dedução", blurb: "O texto em coreano nas tabelas de dedução fica difícil de acompanhar.", steps: 1 })
         ])
       })
     ])
