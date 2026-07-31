@@ -914,17 +914,17 @@ const I18N = Object.freeze({
       Object.freeze({
         id: "next",
         title: "In progress for the next patch",
-        note: "In the queue for the next patch.",
+        note: "Coming in the next patch.",
         tag: "v1.0.2",
         tone: "next",
         items: Object.freeze([
-          Object.freeze({ title: "Case 404 lock-up", blurb: "You can get stuck on the Case 404 screen with no way out.", steps: 3 }),
-          Object.freeze({ title: "Case 3 ending lock-up", blurb: "The game can lock up when Case 3 ends.", steps: 2 }),
-          Object.freeze({ title: "Pause on clues screen", blurb: "Open pause on the clues screen and the game may lock up.", steps: 1 }),
-          Object.freeze({ title: "Secret Files after a code", blurb: "After you enter a code and open a secret level, the game may lock up.", steps: 1 }),
+          Object.freeze({ title: "Case 404 gets stuck", blurb: "You can get stuck on the Case 404 screen with no way out.", steps: 3 }),
+          Object.freeze({ title: "Case 3 ending freeze", blurb: "The game can freeze when Case 3 ends.", steps: 2 }),
+          Object.freeze({ title: "Pause on clues screen", blurb: "If you open pause on the clues screen, the game can freeze.", steps: 1 }),
+          Object.freeze({ title: "Secret Files after a code", blurb: "Enter a code, open a secret level, and the game can freeze.", steps: 1 }),
           Object.freeze({ title: "Case 3 unlock after Case 2", blurb: "Finishing Case 2 sometimes leaves Case 3 locked.", steps: 1 }),
-          Object.freeze({ title: "Theater dressing room cat", blurb: "Clicks on the dressing-room cat do not register, so the level cannot end.", steps: 1 }),
-          Object.freeze({ title: "Demo progress and achievements", blurb: "Demo progress can appear in the full game without unlocking the matching achievements.", steps: 1 })
+          Object.freeze({ title: "Theater dressing room cat", blurb: "Clicks on the dressing-room cat do not register, so you cannot finish the level.", steps: 1 }),
+          Object.freeze({ title: "Demo progress and achievements", blurb: "Demo progress can show up in the full game without unlocking the matching achievements.", steps: 1 })
         ])
       }),
       Object.freeze({
@@ -935,10 +935,10 @@ const I18N = Object.freeze({
         tone: "tba",
         items: Object.freeze([
           Object.freeze({ title: "Hint system loop", blurb: "Hints keep repeating the same stage info, so you can hit a dead end.", steps: 1 }),
-          Object.freeze({ title: "Report a Bug over Classified", blurb: "Open Classified too fast after boot and the Report a Bug button can sit on top of the case grid.", steps: 2 }),
+          Object.freeze({ title: "Report a Bug over Classified", blurb: "Open Classified too fast after starting the game and the Report a Bug button can cover the case grid.", steps: 2 }),
           Object.freeze({ title: "Ultrawide display", blurb: "On ultrawide, the game can freeze or stop responding.", steps: 1 }),
           Object.freeze({ title: "Characters that ignore clicks", blurb: "Some characters do nothing when you click them.", steps: 2 }),
-          Object.freeze({ title: "Clue validation", blurb: "Some clues take a wrong answer, or reject a correct one.", steps: 2 }),
+          Object.freeze({ title: "Clue validation", blurb: "Some clues accept a wrong answer, or reject a correct one.", steps: 2 }),
           Object.freeze({ title: "Repeated cat clue", blurb: "Case 3 Stage 5 reuses the Stage 4 cat clue from the police.", steps: 3 }),
           Object.freeze({ title: "Awkward “Day Off” line", blurb: "Case 3 Stage 1 (EN): the Day Off line sounds off.", steps: 1 }),
           Object.freeze({ title: "Misplaced “my uncle”", blurb: "Case 3 Stage 5 (EN): “my uncle” lands in the wrong place.", steps: 1 }),
