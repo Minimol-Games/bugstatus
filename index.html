@@ -37,6 +37,10 @@
   --tba-soft: rgba(90, 107, 132, 0.28);
   --tba-line: #8a9bb3;
   --tba-glow: rgba(154, 172, 196, 0.28);
+  --held: #e8a45a;
+  --held-soft: rgba(232, 164, 90, 0.18);
+  --held-line: #e8a45a;
+  --held-glow: rgba(232, 164, 90, 0.4);
   --radius: 14px;
   --max: 1480px;
   --brand-h: clamp(3.85rem, 13vw, 5.15rem);
@@ -509,6 +513,17 @@ img { max-width: 100%; height: auto; display: block; }
     linear-gradient(165deg, rgba(154,172,196,.1), transparent 46%),
     var(--panel-strong);
 }
+.card.held {
+  --glow: var(--held-glow);
+  border-color: rgba(232, 164, 90, 0.38);
+  border-left-color: var(--held-line);
+  background:
+    linear-gradient(165deg, rgba(232,164,90,.14), transparent 46%),
+    var(--panel-strong);
+  box-shadow:
+    0 0 0 1px rgba(232, 164, 90, 0.12),
+    0 8px 18px rgba(0,0,0,.22);
+}
 .cards .card:nth-child(1) { animation-delay: .02s; }
 .cards .card:nth-child(2) { animation-delay: .06s; }
 .cards .card:nth-child(3) { animation-delay: .1s; }
@@ -576,6 +591,10 @@ img { max-width: 100%; height: auto; display: block; }
   background: var(--tba);
   box-shadow: 0 0 8px rgba(154,172,196,.25);
 }
+.card.held .prog-track .seg.on {
+  background: var(--held);
+  box-shadow: 0 0 10px rgba(232,164,90,.35);
+}
 .prog-labels {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -617,6 +636,10 @@ img { max-width: 100%; height: auto; display: block; }
 .tag.tba {
   background: var(--tba-soft);
   color: var(--tba);
+}
+.tag.held {
+  background: var(--held-soft);
+  color: var(--held);
 }
 footer {
   margin-top: 1.75rem;
@@ -701,6 +724,12 @@ footer {
     box-shadow:
       0 0 0 1px rgba(154,172,196,.24),
       inset 0 0 24px rgba(154,172,196,.1),
+      0 12px 24px rgba(0,0,0,.3);
+  }
+  .card.held:hover {
+    box-shadow:
+      0 0 0 1px rgba(232,164,90,.32),
+      inset 0 0 28px rgba(232,164,90,.14),
       0 12px 24px rgba(0,0,0,.3);
   }
 }
@@ -838,6 +867,7 @@ footer {
   <div class="legend panel-surface" data-i18n-aria="legend" aria-label="Status legend">
     <span><span class="tag fixed" data-i18n="tagFixed">Fixed v1.0.1</span> <span class="hint" data-i18n="hintFixed">live now</span></span>
     <span><span class="tag next">v1.0.2</span> <span class="hint" data-i18n="hintNext">In progress for the next patch</span></span>
+    <span><span class="tag held" data-i18n="tagHeld">PARALYZED</span> <span class="hint" data-i18n="hintHeld">Progress on this issue is currently paused.</span></span>
     <span><span class="tag tba">TBA</span> <span class="hint" data-i18n="hintTba">Known issues — no release window yet</span></span>
   </div>
 
@@ -845,6 +875,7 @@ footer {
     <button type="button" class="chip" data-filter="All" aria-pressed="true" data-i18n="filterAll">All</button>
     <button type="button" class="chip" data-filter="fixed" aria-pressed="false" data-i18n="tagFixed">Fixed</button>
     <button type="button" class="chip" data-filter="next" aria-pressed="false">v1.0.2</button>
+    <button type="button" class="chip" data-filter="held" aria-pressed="false" data-i18n="tagHeld">PARALYZED</button>
     <button type="button" class="chip" data-filter="tba" aria-pressed="false">TBA</button>
   </div>
 
@@ -860,7 +891,7 @@ footer {
 </main>
 
 <script>
-const ALLOWED_TONES = Object.freeze({ fixed: true, next: true, tba: true });
+const ALLOWED_TONES = Object.freeze({ fixed: true, next: true, held: true, tba: true });
 const ALLOWED_LANGS = Object.freeze({ en: true, pt: true });
 const LANG_KEY = "cs-bugstatus-lang";
 
@@ -880,7 +911,9 @@ const I18N = Object.freeze({
     tagFixed: "Fixed in v1.0.1",
     hintFixed: "available now.",
     hintNext: "planned for the next patch.",
+    hintHeld: "Progress on this issue is currently paused.",
     hintTba: "confirmed, but no ETA yet (TBA).",
+    tagHeld: "PARALYZED",
     filters: "Filter the list by update",
     filterAll: "All",
     footer: "Case Solved: The London Files - Bug Status",
@@ -894,6 +927,7 @@ const I18N = Object.freeze({
     progInQA: "In QA",
     progReady: "Ready to Fix",
     progFixed: "Fixed",
+    progCantReproduce: "Can't Reproduce",
     lanes: Object.freeze([
       Object.freeze({
         id: "fixed",
@@ -923,8 +957,17 @@ const I18N = Object.freeze({
           Object.freeze({ title: "Pause Menu on the Clue Screen", blurb: "Opening the pause menu while viewing clues can cause the game to freeze.", steps: 1 }),
           Object.freeze({ title: "Secret Files After Entering a Code", blurb: "Opening a Secret File immediately after entering a code may cause a freeze.", steps: 1 }),
           Object.freeze({ title: "Case 3 Doesn't Unlock After Case 2", blurb: "In some playthroughs, Case 3 stays locked even after completing Case 2.", steps: 1 }),
-          Object.freeze({ title: "Cat in the Theater Dressing Room", blurb: "Clicking the cat may not register, preventing the stage from being completed.", steps: 1 }),
           Object.freeze({ title: "Demo Progress and Achievements", blurb: "Demo progress can carry over to the full game without unlocking the matching achievements.", steps: 1 })
+        ])
+      }),
+      Object.freeze({
+        id: "held",
+        title: "PARALYZED",
+        note: "Progress on this issue is currently paused.",
+        tag: "PARALYZED",
+        tone: "held",
+        items: Object.freeze([
+          Object.freeze({ title: "Cat in the Theater Dressing Room", blurb: "Clicking the cat may not register, preventing the stage from being completed.", steps: 3 })
         ])
       }),
       Object.freeze({
@@ -971,7 +1014,9 @@ const I18N = Object.freeze({
     tagFixed: "Corrigido v1.0.1",
     hintFixed: "já disponível.",
     hintNext: "previsto para o próximo patch.",
+    hintHeld: "Esse problema está temporariamente sem avanço.",
     hintTba: "já identificados, mas ainda sem previsão (TBA).",
+    tagHeld: "PARALISADO",
     filters: "Filtrar a lista por atualização",
     filterAll: "Todos",
     footer: "Case Solved: The London Files - Status de Bugs",
@@ -985,6 +1030,7 @@ const I18N = Object.freeze({
     progInQA: "Em QA",
     progReady: "Pronto para correção",
     progFixed: "Corrigido",
+    progCantReproduce: "Não Reproduzível",
     lanes: Object.freeze([
       Object.freeze({
         id: "fixed",
@@ -1014,8 +1060,17 @@ const I18N = Object.freeze({
           Object.freeze({ title: "Pause na tela de pistas", blurb: "Abrir o menu de pausa enquanto a tela de pistas está aberta pode congelar o jogo.", steps: 1 }),
           Object.freeze({ title: "Secret Files depois do código", blurb: "Após inserir um código e abrir um nível secreto, o jogo pode congelar.", steps: 1 }),
           Object.freeze({ title: "Caso 3 não libera após o Caso 2", blurb: "Em algumas partidas, o Caso 3 continua bloqueado mesmo depois da conclusão do Caso 2.", steps: 1 }),
-          Object.freeze({ title: "Gato no camarim do teatro", blurb: "O clique no gato do camarim pode não ser registrado, impedindo a conclusão da fase.", steps: 1 }),
           Object.freeze({ title: "Progresso da demo e conquistas", blurb: "O progresso da demo pode ser importado para a versão completa sem liberar as conquistas correspondentes.", steps: 1 })
+        ])
+      }),
+      Object.freeze({
+        id: "held",
+        title: "PARALISADO",
+        note: "Esse problema está temporariamente sem avanço.",
+        tag: "PARALISADO",
+        tone: "held",
+        items: Object.freeze([
+          Object.freeze({ title: "Gato no camarim do teatro", blurb: "O clique no gato do camarim pode não ser registrado, impedindo a conclusão da fase.", steps: 3 })
         ])
       }),
       Object.freeze({
@@ -1133,7 +1188,6 @@ function laneMeta(lane, dict) {
 function progressHtml(tone, steps, dict) {
   const filled = Math.max(1, Math.min(3, Number(steps) || 1));
   const labels = ["", "", ""];
-  const last = filled - 1;
 
   if (tone === "fixed") {
     labels[2] = dict.progFixed;
@@ -1141,6 +1195,10 @@ function progressHtml(tone, steps, dict) {
     if (filled >= 3) labels[2] = dict.progInQA;
     else if (filled >= 2) labels[1] = dict.progInProgress;
     else labels[0] = dict.progInvestigating;
+  } else if (tone === "held") {
+    if (filled >= 3) labels[2] = dict.progCantReproduce;
+    else if (filled >= 2) labels[1] = dict.progInvestigating;
+    else labels[0] = dict.progWaiting;
   } else {
     if (filled >= 3) labels[2] = dict.progReady;
     else if (filled >= 2) labels[1] = dict.progInvestigating;
