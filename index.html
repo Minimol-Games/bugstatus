@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#152349">
-<meta name="description" content="Case Solved: The London Files bug status. See what is fixed, what is coming next, and what is still TBA.">
+<meta name="description" content="Case Solved: The London Files bug status. See what's already fixed, what's coming next, and what's still TBA.">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'none'; upgrade-insecure-requests">
 <title>Case Solved - Bug Status</title>
@@ -867,7 +867,7 @@ footer {
   <div class="legend panel-surface" data-i18n-aria="legend" aria-label="Status legend">
     <span><span class="tag fixed" data-i18n="tagFixed">Fixed v1.0.1</span> <span class="hint" data-i18n="hintFixed">live now</span></span>
     <span><span class="tag next">v1.0.2</span> <span class="hint" data-i18n="hintNext">In progress for the next patch</span></span>
-    <span><span class="tag held" data-i18n="tagHeld">PARALYZED</span> <span class="hint" data-i18n="hintHeld">Progress on this issue is currently paused.</span></span>
+    <span><span class="tag held" data-i18n="tagHeld">On Hold</span> <span class="hint" data-i18n="hintHeld">Progress on this issue is currently paused.</span></span>
     <span><span class="tag tba">TBA</span> <span class="hint" data-i18n="hintTba">Known issues — no release window yet</span></span>
   </div>
 
@@ -875,7 +875,7 @@ footer {
     <button type="button" class="chip" data-filter="All" aria-pressed="true" data-i18n="filterAll">All</button>
     <button type="button" class="chip" data-filter="fixed" aria-pressed="false" data-i18n="tagFixed">Fixed</button>
     <button type="button" class="chip" data-filter="next" aria-pressed="false">v1.0.2</button>
-    <button type="button" class="chip" data-filter="held" aria-pressed="false" data-i18n="tagHeld">PARALYZED</button>
+    <button type="button" class="chip" data-filter="held" aria-pressed="false" data-i18n="tagHeld">On Hold</button>
     <button type="button" class="chip" data-filter="tba" aria-pressed="false">TBA</button>
   </div>
 
@@ -913,7 +913,7 @@ const I18N = Object.freeze({
     hintNext: "planned for the next patch.",
     hintHeld: "Progress on this issue is currently paused.",
     hintTba: "confirmed, but no ETA yet (TBA).",
-    tagHeld: "PARALYZED",
+    tagHeld: "On Hold",
     filters: "Filter the list by update",
     filterAll: "All",
     footer: "Case Solved: The London Files - Bug Status",
@@ -963,9 +963,9 @@ const I18N = Object.freeze({
       }),
       Object.freeze({
         id: "held",
-        title: "PARALYZED",
+        title: "On Hold",
         note: "Progress on this issue is currently paused.",
-        tag: "PARALYZED",
+        tag: "On Hold",
         tone: "held",
         items: Object.freeze([
           Object.freeze({ title: "Cat in the Theater Dressing Room", blurb: "Clicking the cat may not register, preventing the stage from being completed.", steps: 3 })
@@ -997,7 +997,7 @@ const I18N = Object.freeze({
           Object.freeze({ title: "Blank Secret File #22", blurb: "Clicking Secret File #22 after unlocking it opens a blank screen.", steps: 2 }),
           Object.freeze({ title: "French Translation Errors", blurb: "The French translation contains grammar and wording issues that can lead you to the wrong deduction.", steps: 1 }),
           Object.freeze({ title: "Turkish Translation Issues", blurb: "Some parts of the Turkish translation are difficult to understand, making the clues harder to follow.", steps: 1 }),
-          Object.freeze({ title: "Weak German Translation", blurb: "The German translation feels unnatural enough that some players choose to switch to English.", steps: 1 }),
+          Object.freeze({ title: "Weak German Translation", blurb: "The German translation feels so unnatural that some players switch to English.", steps: 1 }),
           Object.freeze({ title: "Dialogue Advances Too Fast", blurb: "Cutscenes and dialogue can move on before you have time to finish reading.", steps: 3 }),
           Object.freeze({ title: "Theater Seats Clipping Through Walls", blurb: "In the theater background, some seats and props clip through the walls.", steps: 1 }),
           Object.freeze({ title: "Menu Softlocks on Steam Deck", blurb: "On Steam Deck, opening certain menus can softlock the game and force a restart.", steps: 1 })
@@ -1020,9 +1020,9 @@ const I18N = Object.freeze({
     tagFixed: "Corrigido v1.0.1",
     hintFixed: "já disponível.",
     hintNext: "previsto para o próximo patch.",
-    hintHeld: "Esse problema está temporariamente sem avanço.",
+    hintHeld: "Este problema está pausado por enquanto.",
     hintTba: "já identificados, mas ainda sem previsão (TBA).",
-    tagHeld: "PARALISADO",
+    tagHeld: "Suspenso",
     filters: "Filtrar a lista por atualização",
     filterAll: "Todos",
     footer: "Case Solved: The London Files - Status de Bugs",
@@ -1072,9 +1072,9 @@ const I18N = Object.freeze({
       }),
       Object.freeze({
         id: "held",
-        title: "PARALISADO",
-        note: "Esse problema está temporariamente sem avanço.",
-        tag: "PARALISADO",
+        title: "Suspenso",
+        note: "Este problema está pausado por enquanto.",
+        tag: "Suspenso",
         tone: "held",
         items: Object.freeze([
           Object.freeze({ title: "Gato no camarim do teatro", blurb: "O clique no gato do camarim pode não ser registrado, impedindo a conclusão da fase.", steps: 3 })
@@ -1093,7 +1093,7 @@ const I18N = Object.freeze({
           Object.freeze({ title: "Tela ultrawide", blurb: "Em monitores ultrawide, o jogo pode travar ou deixar de responder.", steps: 1 }),
           Object.freeze({ title: "Personagens que ignoram clique", blurb: "Alguns personagens clicáveis podem não responder às interações.", steps: 2 }),
           Object.freeze({ title: "Validação de pistas", blurb: "Existem casos em que uma pista aceita uma resposta incorreta ou rejeita a resposta correta.", steps: 2 }),
-          Object.freeze({ title: "Check incorreto no Secret File 20", blurb: "Uma pista pode aparecer como correta mesmo com a tabela preenchida de forma errada, permitindo concluir o caso.", steps: 2 }),
+          Object.freeze({ title: "Validação incorreta no Secret File 20", blurb: "Uma pista pode aparecer como correta mesmo com a tabela preenchida de forma errada, permitindo concluir o caso.", steps: 2 }),
           Object.freeze({ title: "Pista do gato repetida", blurb: "Na Fase 5 do Caso 3, a polícia reutiliza a pista do gato da Fase 4.", steps: 3 }),
           Object.freeze({ title: "Fala estranha com “Day Off”", blurb: "Na versão em inglês da Fase 1 do Caso 3, a fala contendo Day Off soa estranha.", steps: 1 }),
           Object.freeze({ title: "“My uncle” no lugar errado", blurb: "Na Fase 5 do Caso 3 (EN), a frase my uncle aparece na posição incorreta.", steps: 1 }),
