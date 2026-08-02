@@ -1215,7 +1215,7 @@ function laneMeta(lane, dict) {
 }
 
 function progressHtml(tone, steps, dict) {
-  const filled = Math.max(1, Math.min(3, Number(steps) || 1));
+  let filled = Math.max(1, Math.min(3, Number(steps) || 1));
   const labels = ["", "", ""];
 
   if (tone === "fixed") {
@@ -1229,9 +1229,8 @@ function progressHtml(tone, steps, dict) {
     else if (filled >= 2) labels[1] = dict.progInvestigating;
     else labels[0] = dict.progWaiting;
   } else {
-    if (filled >= 3) labels[2] = dict.progReady;
-    else if (filled >= 2) labels[1] = dict.progInvestigating;
-    else labels[0] = dict.progWaiting;
+    filled = 1;
+    labels[0] = dict.progWaiting;
   }
 
   const segs = [0, 1, 2].map((i) =>
